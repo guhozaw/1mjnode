@@ -27,20 +27,23 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url);
 });
 */
-var http = require("http");
-var server = http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/html"});
-  response.write("<!DOCTYPE "+html+">");
-  response.write("<html>");
-  response.write("<head>");
-  response.write("<title>Hello World Page</title>");
-  response.write("</head>");
-  response.write("<body>");
-  response.write("Hello World!");
-  response.write("</body>");
-  response.write("</html>");
-  response.end();
-});
 
-server.listen(80);
-console.log("Server is listening");
+//Lets require/import the HTTP module
+var http = require('http');
+
+//Lets define a port we want to listen to
+const PORT=8080; 
+
+//We need a function which handles requests and send response
+function handleRequest(request, response){
+    response.end('It Works!! Path Hit: ' + request.url);
+}
+
+//Create a server
+var server = http.createServer(handleRequest);
+
+//Lets start our server
+server.listen(PORT, function(){
+    //Callback triggered when server is successfully listening. Hurray!
+    console.log("Server listening on: http://localhost:%s", PORT);
+});
