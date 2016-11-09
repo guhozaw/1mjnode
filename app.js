@@ -8,9 +8,23 @@ var PORT=(process.env.VCAP_APP_PORT || 8080);
 function handleRequest(request, response){
 	
     response.writeHead(200,{"Content-Type":"text/html"});
-    response.write("<html><head><title>Mysite</title></head><body>");
-    response.write("yay!!</body></html>");
-    response.end();
+    /*response.write("<html><head><title>Mysite</title></head><body>");
+    response.write("yay!!</body></html>");*/
+    var options = {host:'manthanjamdagni.com',path:'/'};
+    var stuff = "";
+    http.get(options, function(res){
+    	res.on('data',function(chunk){
+    		stuff+=chunk;
+    	});
+    	res.on('end',function(){
+    		 response.write(stuff);
+    		 response.end(); 
+    	});
+    	
+    });
+   
+	
+    
 }
 
 //Create a server
